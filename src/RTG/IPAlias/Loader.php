@@ -54,51 +54,56 @@ class Loader extends PluginBase implements Listener {
     
     public function onJoin(\pocketmine\event\player\PlayerJoinEvent $e) {
         
-        if ($this->cfg->get("tracing") === true) {
+        $this->onIPAdd($e->getPlayer()->getName(), $e->getPlayer()->getAddress());
         
-            if (!is_file($this->getDataFolder() . "players/" . $e->getPlayer()->getName() . ".yml")) {
+    }
+    
+    public function onIPAdd($name, $ip) {
+        
+        if ($this->cfg->get("tracing") === true) {
             
-                $file = new \pocketmine\utils\Config($this->getDataFolder() . "players/" . $e->getPlayer()->getName() . ".yml", array("ips" => array()));
-            
-                $ip = $e->getPlayer()->getAddress();
+            if (!is_dir($this->getDataFolder() . "players/"  . $name . ".yml")) {
+                
+                $file = new \pocketmine\utils\Config($this->getDataFolder() . "players/" . $name . ".yml", \pocketmine\utils\Config::YAML, array("ips" => array()));
+                
                 $get = $file->get("ips");
-            
+                
                 if (in_array($ip, $get)) {
-                
+                    
                     $this->getLogger()->warning($e->getPlayer()->gatName() . " joined with an existing IP!");
-                
+                    
                 } else {
-                
+                    
                     array_push($get, $ip);
-                
+                    
                     $file->set("ips", $get);
                     $file->save();
-                
+                    
                     $this->getLogger()->warning($e->getPlayer()->getName() . " joined with a new IP!");
-                
+                    
                 }
+                
+            }
+               
+        } else {
             
+            
+            $file = new \pocketmine\utils\Config($this->getDataFolder() . "players/" . $name . ".yml", \pocketmine\utils\Config::YAML, array("ips" => array()));
+                
+            $get = $file->get("ips");
+                
+            if (in_array($ip, $get)) {
+                    
+                $this->getLogger()->warning($e->getPlayer()->gatName() . " joined with an existing IP!");
+                    
             } else {
-            
-                $file = new \pocketmine\utils\Config($this->getDataFolder() . "players/" . $e->getPlayer()->getName() . ".yml", array("ips" => array()));
-            
-                $ip = $e->getPlayer()->getAddress();
-                $get = $file->get("ips");
-            
-                if (in_array($ip, $get)) {
-                
-                    $this->getLogger()->warning($e->getPlayer()->gatName() . " joined with an existing IP!");
-                
-                } else {
-                
-                    array_push($get, $ip);
-                
-                    $file->set("ips", $get);
-                    $file->save();
-                
-                    $this->getLogger()->warning($e->getPlayer()->getName() . " joined with a new IP!");
-                
-                }
+                    
+                array_push($get, $ip);
+                    
+                $file->set("ips", $get);
+                $file->save();
+                    
+                $this->getLogger()->warning($e->getPlayer()->getName() . " joined with a new IP!");
                 
             }
             
