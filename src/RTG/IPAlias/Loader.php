@@ -70,7 +70,7 @@ class Loader extends PluginBase implements Listener {
                 
                 if (in_array($ip, $get)) {
                     
-                    $this->getLogger()->warning($e->getPlayer()->gatName() . " joined with an existing IP!");
+                    $this->getLogger()->warning($name . " joined with an existing IP!");
                     
                 } else {
                     
@@ -79,7 +79,7 @@ class Loader extends PluginBase implements Listener {
                     $file->set("ips", $get);
                     $file->save();
                     
-                    $this->getLogger()->warning($e->getPlayer()->getName() . " joined with a new IP!");
+                    $this->getLogger()->warning($name . " joined with a new IP!");
                     
                 }
                 
@@ -94,7 +94,7 @@ class Loader extends PluginBase implements Listener {
                 
             if (in_array($ip, $get)) {
                     
-                $this->getLogger()->warning($e->getPlayer()->gatName() . " joined with an existing IP!");
+                $this->getLogger()->warning($name . " joined with an existing IP!");
                     
             } else {
                     
@@ -103,7 +103,7 @@ class Loader extends PluginBase implements Listener {
                 $file->set("ips", $get);
                 $file->save();
                     
-                $this->getLogger()->warning($e->getPlayer()->getName() . " joined with a new IP!");
+                $this->getLogger()->warning($name . " joined with a new IP!");
                 
             }
             
