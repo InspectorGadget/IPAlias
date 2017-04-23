@@ -72,6 +72,7 @@ class Loader extends PluginBase implements Listener {
                     array_push($get, $ip);
                 
                     $file->set("ips", $get);
+                    $file->save();
                 
                     $this->getLogger()->warning($e->getPlayer()->getName() . " joined with a new IP!");
                 
@@ -93,6 +94,7 @@ class Loader extends PluginBase implements Listener {
                     array_push($get, $ip);
                 
                     $file->set("ips", $get);
+                    $file->save();
                 
                     $this->getLogger()->warning($e->getPlayer()->getName() . " joined with a new IP!");
                 
